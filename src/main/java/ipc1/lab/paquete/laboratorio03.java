@@ -6,7 +6,7 @@ public class laboratorio03 {
 
     static int global = 10;
 
-    public static void printMenu() {
+    public void printMenu() {
         System.out.println("----------- Menu -------------");
         System.out.println("1. Imprimir los números de 1 a 10");
         System.out.println("2. Verificar si el numero es primo");
@@ -15,7 +15,7 @@ public class laboratorio03 {
         System.out.print("Ingrese la opción que desea ejecutar: ");
     }
 
-    public static boolean verificarPrimo(int n) {
+    public boolean verificarPrimo(int n) {
         int x = 2;
         while (true) {
             if (n % x == 0) {
@@ -32,7 +32,7 @@ public class laboratorio03 {
         }
     }
 
-    public static void ejecutar() {
+    public void ejecutar() {
         boolean end = false;
         Scanner sc = new Scanner(System.in);
         int option;
