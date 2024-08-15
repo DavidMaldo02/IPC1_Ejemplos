@@ -35,4 +35,9 @@ public class Researcher extends User {
     public void incrementExperimentsCount() {
         this.experimentsCount++;
     }
+
+    @Override
+    public String toString() {
+        return this.getCode() + " - " + this.name + " - " + this.experimentsCount;
+    }
 }
