@@ -7,7 +7,8 @@ import ipc1.lab.experiment.Sample;
 import java.util.ArrayList;
 
 public class State {
-    public static User admin = new User("admin", "admin");
+    public static User admin = new User("admin", "admin", "admin");
+    public static User currentUser = null;
     public static ArrayList<User> users = new ArrayList<>();
 
     public static ArrayList<Sample> samples = new ArrayList<>();

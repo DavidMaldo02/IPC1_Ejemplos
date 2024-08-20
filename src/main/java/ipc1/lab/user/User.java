@@ -3,10 +3,12 @@ package ipc1.lab.user;
 public class User {
     private String code;
     private String password;
+    private String type;
 
-    public User(String code, String password) {
+    public User(String code, String password, String type) {
         this.code = code;
         this.password = password;
+        this.type = type;
     }
 
     public String getCode() {
@@ -23,6 +25,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
