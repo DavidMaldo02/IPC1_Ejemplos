@@ -19,6 +19,7 @@ public class ResearcherFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                State.currentUser = null;
                 Util.loginFrame.setVisible(true);
             }
         });
