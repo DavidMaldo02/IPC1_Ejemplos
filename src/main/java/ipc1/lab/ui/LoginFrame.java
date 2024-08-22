@@ -4,11 +4,15 @@ import ipc1.lab.common.State;
 import ipc1.lab.user.User;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginFrame extends JFrame {
+    JTextField codeField;
+    JPasswordField passwordField;
+
     public LoginFrame() throws HeadlessException {
         setTitle("Login");
         setSize(new Dimension(750, 500));
@@ -17,51 +21,44 @@ public class LoginFrame extends JFrame {
         setResizable(false);
 
         // Layout
-        GridLayout layout = new GridLayout(6, 1, 0, 24);
-
+        GridLayout layout = new GridLayout(6, 1, 0, 32);
         // Panel
-        JPanel loginPanel = new JPanel();
-        loginPanel.setLayout(layout);
+        JPanel loginPanel = new JPanel(layout);
         loginPanel.setBackground(Pallete.background);
-        setContentPane(loginPanel);
-
-        // Content
+        loginPanel.setBorder(new EmptyBorder(32, 32, 32, 32));
+        this.setContentPane(loginPanel);
+        // Title
         JLabel title = new JLabel("Bienvenido!");
         title.setForeground(Pallete.text);
         title.setFont(Fonts.title);
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        add(title);
-
+        this.add(title);
         JLabel codeLabel = new JLabel("Código");
         codeLabel.setForeground(Pallete.text);
         codeLabel.setFont(Fonts.input);
         add(codeLabel);
 
-        JTextField codeField = new JTextField();
-        codeField.setForeground(Pallete.text);
-        codeLabel.setFont(Fonts.normal);
+        codeField = new JTextField();
         codeField.setSize(450, 50);
         add(codeField);
 
-        JLabel passwordLabel = new JLabel("Contraseña");
+        JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setForeground(Pallete.text);
         passwordLabel.setFont(Fonts.input);
         add(passwordLabel);
 
-        JPasswordField passwordField = new JPasswordField();
-        passwordField.setForeground(Pallete.background);
-        passwordLabel.setFont(Fonts.normal);
+        passwordField = new JPasswordField();
         passwordField.setSize(450, 50);
         add(passwordField);
 
-        JButton loginButton = new JButton("Iniciar Sesión");
-        loginButton.setForeground(Pallete.text);
-        loginButton.setBackground(Pallete.primary);
-        loginButton.setFont(Fonts.normal);
-        loginButton.addActionListener(new ActionListener() {
+        JButton btLogin = new JButton("Iniciar Sesión");
+        btLogin.setForeground(Pallete.background);
+        btLogin.setBackground(Pallete.text);
+        btLogin.setFont(Fonts.normal);
+        btLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (User user: State.users) {
+                for (User user : State.users) {
                     if (user.getCode().equals(codeField.getText()) &&
                             user.getPassword().equals(new String(passwordField.getPassword()))
                     ) {
@@ -71,7 +68,7 @@ public class LoginFrame extends JFrame {
                 }
 
                 if (State.currentUser == null) {
-                    JOptionPane.showMessageDialog(null, "Credenciales incorrectas!");
+                    JOptionPane.showMessageDialog(null, "Credenciales Incorrectas!");
                     return;
                 }
 
@@ -85,6 +82,6 @@ public class LoginFrame extends JFrame {
                 passwordField.setText("");
             }
         });
-        add(loginButton);
+        add(btLogin);
     }
 }

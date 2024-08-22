@@ -2,8 +2,6 @@ package ipc1.lab;
 
 import ipc1.lab.common.State;
 import ipc1.lab.common.Util;
-import ipc1.lab.ui.LoginFrame;
-
 
 public class Main {
     public static void main(String[] args) {

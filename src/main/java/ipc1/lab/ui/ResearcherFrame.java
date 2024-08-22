@@ -4,6 +4,7 @@ import ipc1.lab.common.State;
 import ipc1.lab.common.Util;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -18,7 +19,6 @@ public class ResearcherFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                State.currentUser = null;
                 Util.loginFrame.setVisible(true);
             }
         });
@@ -26,15 +26,15 @@ public class ResearcherFrame extends JFrame {
         // Panel
         JPanel loginPanel = new JPanel();
         loginPanel.setBackground(Pallete.background);
-        setContentPane(loginPanel);
+        loginPanel.setBorder(new EmptyBorder(32, 32, 32, 32));
+        this.setContentPane(loginPanel);
 
         // Title
-        JLabel title = new JLabel("Bienvenido Investigador!");
+        JLabel title = new JLabel("Bienvenido " + State.currentUser.getCode() + "!");
         title.setForeground(Pallete.text);
         title.setFont(Fonts.title);
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        add(title);
-
+        this.add(title);
         setVisible(true);
     }
 }
