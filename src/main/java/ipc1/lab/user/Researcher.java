@@ -6,7 +6,7 @@ public class Researcher extends User {
     private int experimentsCount;
 
     public Researcher(String code, String password, String name, char genre, int experimentsCount) {
-        super(code, password);
+        super(code, password, "researcher");
         this.name = name;
         this.genre = genre;
         this.experimentsCount = experimentsCount;
