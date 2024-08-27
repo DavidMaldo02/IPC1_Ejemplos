@@ -20,6 +20,7 @@ public class ResearcherFrame extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 Util.loginFrame.setVisible(true);
+                State.currentUser = null;
             }
         });
 

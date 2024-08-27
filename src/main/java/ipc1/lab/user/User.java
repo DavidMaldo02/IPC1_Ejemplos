@@ -1,6 +1,8 @@
 package ipc1.lab.user;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String code;
     private String password;
     private String type;
