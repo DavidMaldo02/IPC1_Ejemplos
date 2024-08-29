@@ -5,7 +5,6 @@ import ipc1.lab.user.Researcher;
 import ipc1.lab.user.User;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ public class Util {
     public static LoginFrame loginFrame = new LoginFrame();
 
     public static void loadUsers(String path) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File(path)))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
             ArrayList<String> list = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
@@ -34,28 +33,26 @@ public class Util {
         } catch (IOException ioException) {
             System.out.println(ioException.getMessage());
         } finally {
-            for (User user: State.users) {
+            for (User user : State.users) {
                 System.out.println(user);
             }
         }
     }
 
-    public static User[] bubbleSortResearches(ArrayList<User> users) {
+    public static User[] bubbleSortResearchers(ArrayList<User> users) {
         User[] sortedUsers = new User[users.size() - 1];
-        for (int i = 1; i < users.size(); i++) {
+        for (int i = 1; i < users.size(); i++)
             sortedUsers[i - 1] = users.get(i);
-        }
         for (int i = 0; i < sortedUsers.length - 1; i++) {
             for (int j = 0; j < sortedUsers.length - 1 - i; j++) {
                 if (sortedUsers[j] instanceof Researcher researcher1 && sortedUsers[j + 1] instanceof Researcher researcher2) {
                     if (researcher1.getExperimentsCount() < researcher2.getExperimentsCount()) {
-                        Researcher tmp = (Researcher) sortedUsers[j];
+                        Researcher temp = (Researcher) sortedUsers[j];
                         sortedUsers[j] = sortedUsers[j + 1];
-                        sortedUsers[j + 1] = tmp;
+                        sortedUsers[j + 1] = temp;
                     }
                 }
             }
-
         }
         return sortedUsers;
     }

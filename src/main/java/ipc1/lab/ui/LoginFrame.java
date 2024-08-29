@@ -8,6 +8,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 public class LoginFrame extends JFrame {
     JTextField codeField;
@@ -58,30 +62,49 @@ public class LoginFrame extends JFrame {
         btLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (User user : State.users) {
-                    if (user.getCode().equals(codeField.getText()) &&
-                            user.getPassword().equals(new String(passwordField.getPassword()))
-                    ) {
-                        State.currentUser = user;
-                        break;
-                    }
-                }
-
-                if (State.currentUser == null) {
-                    JOptionPane.showMessageDialog(null, "Credenciales Incorrectas!");
-                    return;
-                }
-
-                if (State.currentUser.getRole().equals("admin")) {
-                    new AdminFrame();
-                } else {
-                    new ResearcherFrame();
-                }
-                setVisible(false);
-                codeField.setText("");
-                passwordField.setText("");
+                login();
             }
         });
         add(btLogin);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    FileOutputStream fileOutputStream = new FileOutputStream("./src/main/resources/users.bin");
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                    objectOutputStream.writeObject(State.users);
+                    objectOutputStream.flush();
+                    objectOutputStream.close();
+                } catch (Exception exception) {
+                    System.out.println(exception.getMessage());
+                }
+            }
+        });
+    }
+
+    private void login() {
+        for (User user : State.users) {
+            if (user.getCode().equals(codeField.getText()) &&
+                    user.getPassword().equals(new String(passwordField.getPassword()))
+            ) {
+                State.currentUser = user;
+                break;
+            }
+        }
+
+        if (State.currentUser == null) {
+            JOptionPane.showMessageDialog(null, "Credenciales Incorrectas!");
+            return;
+        }
+
+        if (State.currentUser.getType().equals("admin")) {
+            new AdminFrame();
+        } else {
+            new ResearcherFrame();
+        }
+        setVisible(false);
+        codeField.setText("");
+        passwordField.setText("");
     }
 }
