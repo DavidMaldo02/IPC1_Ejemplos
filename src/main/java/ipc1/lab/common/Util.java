@@ -39,4 +39,24 @@ public class Util {
             }
         }
     }
+
+    public static User[] bubbleSortResearches(ArrayList<User> users) {
+        User[] sortedUsers = new User[users.size() - 1];
+        for (int i = 1; i < users.size(); i++) {
+            sortedUsers[i - 1] = users.get(i);
+        }
+        for (int i = 0; i < sortedUsers.length - 1; i++) {
+            for (int j = 0; j < sortedUsers.length - 1 - i; j++) {
+                if (sortedUsers[j] instanceof Researcher researcher1 && sortedUsers[j + 1] instanceof Researcher researcher2) {
+                    if (researcher1.getExperimentsCount() < researcher2.getExperimentsCount()) {
+                        Researcher tmp = (Researcher) sortedUsers[j];
+                        sortedUsers[j] = sortedUsers[j + 1];
+                        sortedUsers[j + 1] = tmp;
+                    }
+                }
+            }
+
+        }
+        return sortedUsers;
+    }
 }
