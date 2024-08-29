@@ -98,7 +98,7 @@ public class LoginFrame extends JFrame {
             return;
         }
 
-        if (State.currentUser.getType().equals("admin")) {
+        if (State.currentUser.getRole().equals("admin")) {
             new AdminFrame();
         } else {
             new ResearcherFrame();
