@@ -22,6 +22,8 @@ public class Main {
             State.users.add(State.admin);
         }
 
+        Util.loadSamples("./src/main/resources/muestras.csv");
+
         Util.loginFrame.setVisible(true);
     }
 }

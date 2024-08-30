@@ -1,5 +1,6 @@
 package ipc1.lab.common;
 
+import ipc1.lab.experiment.Sample;
 import ipc1.lab.ui.LoginFrame;
 import ipc1.lab.user.Researcher;
 import ipc1.lab.user.User;
@@ -20,13 +21,13 @@ public class Util {
                 list.add(line);
             }
             for (int i = 1; i < list.size(); i++) {
-                String[] infoInvestigadores = list.get(i).split(",");
+                String[] infoMuestras = list.get(i).split(",");
                 Researcher newResearcher = new Researcher(
-                        infoInvestigadores[0],
-                        infoInvestigadores[4],
-                        infoInvestigadores[1],
-                        infoInvestigadores[2].charAt(0),
-                        Integer.parseInt(infoInvestigadores[3])
+                        infoMuestras[0],
+                        infoMuestras[4],
+                        infoMuestras[1],
+                        infoMuestras[2].charAt(0),
+                        Integer.parseInt(infoMuestras[3])
                 );
                 State.users.add(newResearcher);
             }
@@ -36,6 +37,35 @@ public class Util {
             for (User user : State.users) {
                 System.out.println(user);
             }
+        }
+    }
+
+    public static void loadSamples(String path) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            ArrayList<String> list = new ArrayList<>();
+            while ((line = reader.readLine()) != null) {
+                list.add(line);
+            }
+            for (int i = 1; i < list.size(); i++) {
+                String[] infoMuestras = list.get(i).split(",");
+                // Transformar la muestra a un arreglo de enteros 1;0;0;1
+                String[] muestra = infoMuestras[2].split(";");
+                int longitudMatriz = (int) Math.sqrt(muestra.length);
+                int[][] matrizMuestra = new int[longitudMatriz][longitudMatriz];
+                for (int j = 0; j < longitudMatriz; j++) {
+                    for (int k = 0; k < longitudMatriz; k++) {
+                        matrizMuestra[j][k] = Integer.parseInt(muestra[j * longitudMatriz + k]);
+                    }
+                }
+                Sample sample = new Sample(infoMuestras[0], infoMuestras[1], matrizMuestra);
+                State.samples.add(sample);
+            }
+        } catch (IOException ioException) {
+            System.out.println(ioException.getMessage());
+        } finally {
+            for (Sample sample: State.samples)
+                System.out.println(sample);
         }
     }
 
