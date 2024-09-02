@@ -1,8 +1,8 @@
 package ipc1.lab.common;
 
 import ipc1.lab.experiment.Experiment;
-import ipc1.lab.user.User;
 import ipc1.lab.experiment.Sample;
+import ipc1.lab.user.User;
 
 import java.util.ArrayList;
 

@@ -64,7 +64,7 @@ public class Util {
         } catch (IOException ioException) {
             System.out.println(ioException.getMessage());
         } finally {
-            for (Sample sample: State.samples)
+            for (Sample sample : State.samples)
                 System.out.println(sample);
         }
     }
