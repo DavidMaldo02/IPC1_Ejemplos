@@ -142,7 +142,11 @@ public class AdminFrame extends JFrame implements ActionListener {
                 }
                 updateTop3ResearchersChart();
             }
-
+        } else if (event.getSource() == editarBtn) {
+            if (usersTable.getSelectedRow() != -1) {
+                new UpdateResearcherFrame(State.users.get(usersTable.getSelectedRow() + 1), usersTableModel, usersTable.getSelectedRow());
+                updateTop3ResearchersChart();
+            }
         }
     }
 
