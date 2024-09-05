@@ -32,6 +32,10 @@ public class Researcher extends User {
         return experimentsCount;
     }
 
+    public void setExperimentsCount(int experimentsCount) {
+        this.experimentsCount = experimentsCount;
+    }
+
     public void incrementExperimentsCount() {
         this.experimentsCount++;
     }
