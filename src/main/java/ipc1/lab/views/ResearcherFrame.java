@@ -1,7 +1,8 @@
-package ipc1.lab.ui;
+package ipc1.lab.views;
 
-import ipc1.lab.common.State;
-import ipc1.lab.common.Util;
+import ipc1.lab.controllers.UserController;
+import ipc1.lab.ui.Fonts;
+import ipc1.lab.ui.Pallete;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -19,9 +20,8 @@ public class ResearcherFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                State.currentUser = null;
-                Util.loginFrame.setVisible(true);
-                State.currentUser = null;
+                UserController.currentUser = null;
+                new LoginFrame().setVisible(true);
             }
         });
 
@@ -32,7 +32,7 @@ public class ResearcherFrame extends JFrame {
         this.setContentPane(loginPanel);
 
         // Title
-        JLabel title = new JLabel("Bienvenido " + State.currentUser.getCode() + "!");
+        JLabel title = new JLabel("Bienvenido " + UserController.currentUser.getCode() + "!");
         title.setForeground(Pallete.text);
         title.setFont(Fonts.title);
         title.setHorizontalAlignment(SwingConstants.CENTER);

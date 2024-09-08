@@ -1,6 +1,9 @@
-package ipc1.lab.ui;
+package ipc1.lab.views;
 
-import ipc1.lab.user.Researcher;
+import ipc1.lab.models.Researcher;
+import ipc1.lab.ui.Fonts;
+import ipc1.lab.ui.Input;
+import ipc1.lab.ui.Pallete;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

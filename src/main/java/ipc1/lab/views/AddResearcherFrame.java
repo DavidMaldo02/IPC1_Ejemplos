@@ -1,7 +1,10 @@
-package ipc1.lab.ui;
+package ipc1.lab.views;
 
-import ipc1.lab.common.State;
-import ipc1.lab.user.Researcher;
+import ipc1.lab.controllers.UserController;
+import ipc1.lab.models.Researcher;
+import ipc1.lab.ui.Fonts;
+import ipc1.lab.ui.Input;
+import ipc1.lab.ui.Pallete;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -56,8 +59,8 @@ public class AddResearcherFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == addBtn) {
-            String ID = String.format("QI-%02d", State.users.size() - 1);
-            State.users.add(new Researcher(ID, passwordInput.getText(), nameInput.getText(), genreInput.getText().charAt(0), 0));
+            String ID = String.format("QI-%02d", UserController.users.size() - 1);
+            UserController.users.add(new Researcher(ID, passwordInput.getText(), nameInput.getText(), genreInput.getText().charAt(0), 0));
             tableModel.addRow(new String[]{
                     ID,
                     nameInput.getText(),

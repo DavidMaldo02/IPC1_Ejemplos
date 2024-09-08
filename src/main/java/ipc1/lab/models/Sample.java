@@ -1,4 +1,4 @@
-package ipc1.lab.experiment;
+package ipc1.lab.models;
 
 public class Sample {
     private String code;
