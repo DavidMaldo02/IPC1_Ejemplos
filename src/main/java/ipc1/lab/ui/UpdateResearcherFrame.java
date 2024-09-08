@@ -1,7 +1,6 @@
 package ipc1.lab.ui;
 
 import ipc1.lab.user.Researcher;
-import ipc1.lab.user.User;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -19,15 +18,15 @@ public class UpdateResearcherFrame extends JFrame implements ActionListener {
     DefaultTableModel tableModel;
     int row;
 
-    public UpdateResearcherFrame(User user, DefaultTableModel tableModel, int row) {
+    public UpdateResearcherFrame(Researcher user, DefaultTableModel tableModel, int row) throws HeadlessException {
+        this.user = user;
+        this.tableModel = tableModel;
+        this.row = row;
         setTitle("Editar Investigador");
         setSize(500, 750);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        this.user = (Researcher) user;
-        this.tableModel = tableModel;
-        this.row = row;
 
         GridLayout layout = new GridLayout(5, 1, 12, 24);
         JPanel panel = new JPanel(layout);
@@ -71,6 +70,5 @@ public class UpdateResearcherFrame extends JFrame implements ActionListener {
             this.tableModel.setValueAt(experimentsCount, row, 3);
             this.dispose();
         }
-
     }
 }

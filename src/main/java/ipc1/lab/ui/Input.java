@@ -30,6 +30,7 @@ public class Input extends JPanel {
     }
 
     public Input(String label, String placeholder) {
+
         GridLayout gridLayout = new GridLayout(2, 1, 0, 4);
         setLayout(gridLayout);
         setBackground(Pallete.background);
