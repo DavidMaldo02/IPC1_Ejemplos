@@ -4,6 +4,7 @@ import ipc1.lab.controllers.SampleController;
 import ipc1.lab.controllers.UserController;
 import ipc1.lab.models.User;
 import ipc1.lab.views.LoginFrame;
+import ipc1.lab.views.ResearcherFrame;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class Main {
 
         SampleController.loadSamples("./src/main/resources/muestras.csv");
 
-        new LoginFrame().setVisible(true);
+       // new LoginFrame().setVisible(true);
+        new ResearcherFrame();
     }
 }
