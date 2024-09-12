@@ -1,6 +1,4 @@
-package ipc1.lab.experiment;
-
-import ipc1.lab.user.Researcher;
+package ipc1.lab.models;
 
 public class Experiment {
     private int id = 0;

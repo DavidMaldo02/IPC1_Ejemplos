@@ -1,7 +1,9 @@
-package ipc1.lab.ui;
+package ipc1.lab.views;
 
-import ipc1.lab.common.State;
-import ipc1.lab.user.User;
+import ipc1.lab.controllers.UserController;
+import ipc1.lab.models.User;
+import ipc1.lab.ui.Fonts;
+import ipc1.lab.ui.Pallete;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -73,7 +75,7 @@ public class LoginFrame extends JFrame {
                 try {
                     FileOutputStream fileOutputStream = new FileOutputStream("./src/main/resources/users.bin");
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-                    objectOutputStream.writeObject(State.users);
+                    objectOutputStream.writeObject(UserController.users);
                     objectOutputStream.flush();
                     objectOutputStream.close();
                 } catch (Exception exception) {
@@ -84,21 +86,21 @@ public class LoginFrame extends JFrame {
     }
 
     private void login() {
-        for (User user : State.users) {
+        for (User user : UserController.users) {
             if (user.getCode().equals(codeField.getText()) &&
                     user.getPassword().equals(new String(passwordField.getPassword()))
             ) {
-                State.currentUser = user;
+                UserController.currentUser = user;
                 break;
             }
         }
 
-        if (State.currentUser == null) {
+        if (UserController.currentUser == null) {
             JOptionPane.showMessageDialog(null, "Credenciales Incorrectas!");
             return;
         }
 
-        if (State.currentUser.getRole().equals("admin")) {
+        if (UserController.currentUser.getRole().equals("admin")) {
             new AdminFrame();
         } else {
             new ResearcherFrame();

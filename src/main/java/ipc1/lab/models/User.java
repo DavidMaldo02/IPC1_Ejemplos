@@ -1,4 +1,4 @@
-package ipc1.lab.user;
+package ipc1.lab.models;
 
 import java.io.Serializable;
 

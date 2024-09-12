@@ -1,9 +1,10 @@
-package ipc1.lab.ui;
+package ipc1.lab.views;
 
-import ipc1.lab.common.State;
-import ipc1.lab.common.Util;
-import ipc1.lab.user.Researcher;
-import ipc1.lab.user.User;
+import ipc1.lab.controllers.UserController;
+import ipc1.lab.models.Researcher;
+import ipc1.lab.models.User;
+import ipc1.lab.ui.Fonts;
+import ipc1.lab.ui.Pallete;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -37,8 +38,8 @@ public class AdminFrame extends JFrame implements ActionListener {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                Util.loginFrame.setVisible(true);
-                State.currentUser = null;
+                UserController.currentUser = null;
+                new LoginFrame().setVisible(true);
             }
         });
         BorderLayout borderLayout = new BorderLayout(16, 24);
@@ -57,10 +58,10 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         // Researchers Table
         String[] usersAttributes = {"Código", "Nombre", "Género", "Número de Experimentos"};
-        String[][] usersData = new String[State.users.size() - 1][4];
+        String[][] usersData = new String[UserController.users.size() - 1][4];
         // Fill table
-        for (int i = 0; i < State.users.size(); i++) {
-            if (State.users.get(i) instanceof Researcher researcher) {
+        for (int i = 0; i < UserController.users.size(); i++) {
+            if (UserController.users.get(i) instanceof Researcher researcher) {
                 usersData[i - 1][0] = researcher.getCode();
                 usersData[i - 1][1] = researcher.getName();
                 usersData[i - 1][2] = String.valueOf(researcher.getGenre());
@@ -77,7 +78,7 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         // Top 3 researchers chart
         top3ResearchersData = new DefaultCategoryDataset();
-        User[] topResearchers = Util.bubbleSortResearchers(State.users);
+        User[] topResearchers = UserController.bubbleSortResearchers();
         for (int i = 0; i < topResearchers.length; i++) {
             if (i == 3) break;
             if (topResearchers[i] instanceof Researcher researcher) {
@@ -109,9 +110,9 @@ public class AdminFrame extends JFrame implements ActionListener {
         if (event.getSource() == eliminarBtn) {
             if (usersTable.getSelectedRow() != -1) {
                 // eliminar de la gráfica
-                top3ResearchersData.removeValue(State.users.get(usersTable.getSelectedRow() + 1).getCode(), "Experimentos");
+                top3ResearchersData.removeValue(UserController.users.get(usersTable.getSelectedRow() + 1).getCode(), "Experimentos");
                 // eliminar de la lista de usuarios
-                State.users.remove(usersTable.getSelectedRow() + 1);
+                UserController.users.remove(usersTable.getSelectedRow() + 1);
                 // eliminar de la tabla
                 usersTableModel.removeRow(usersTable.getSelectedRow());
                 // actualizar el top 3 de investigadores
@@ -128,10 +129,10 @@ public class AdminFrame extends JFrame implements ActionListener {
                 path = fileChooser.getSelectedFile().getAbsolutePath();
             }
             if (path != null) {
-                int tmp = State.users.size();
-                Util.loadUsers(path);
-                for (int i = tmp; i < State.users.size(); i++) {
-                    if (State.users.get(i) instanceof Researcher researcher) {
+                int tmp = UserController.users.size();
+                UserController.loadUsers(path);
+                for (int i = tmp; i < UserController.users.size(); i++) {
+                    if (UserController.users.get(i) instanceof Researcher researcher) {
                         usersTableModel.addRow(new String[]{
                                 researcher.getCode(),
                                 researcher.getName(),
@@ -145,7 +146,7 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         } else if (event.getSource() == editarBtn) {
             if (usersTable.getSelectedRow() != -1) {
-                new UpdateResearcherFrame((Researcher) State.users.get(usersTable.getSelectedRow() + 1), usersTableModel, usersTable.getSelectedRow());
+                new UpdateResearcherFrame((Researcher) UserController.users.get(usersTable.getSelectedRow() + 1), usersTableModel, usersTable.getSelectedRow());
                 updateTop3ResearchersChart();
             }
 
@@ -153,7 +154,7 @@ public class AdminFrame extends JFrame implements ActionListener {
     }
 
     private void updateTop3ResearchersChart() {
-        User[] topResearchers = Util.bubbleSortResearchers(State.users);
+        User[] topResearchers = UserController.bubbleSortResearchers();
         top3ResearchersData.clear();
         for (int i = 0; i < topResearchers.length; i++) {
             if (i == 3) break;
