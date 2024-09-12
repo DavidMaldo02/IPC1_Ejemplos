@@ -52,7 +52,12 @@ public class ResearcherFrame extends JFrame {
         JProgressBar progressBar3 = new JProgressBar(0, 100);
         this.add(progressBar3);
 
-        this.setVisible(true);
+// Product counter
+        JLabel counter = new JLabel("Productos terminados: 0");
+        counter.setForeground(Pallete.text);
+        counter.setFont(Fonts.title2);
+        counter.setHorizontalAlignment(SwingConstants.CENTER);
+        this.add(counter);
 
         Product product = new Product("P-01", "Carro", "Aluminio", "Verde", 5);
         products.add(product);
@@ -61,26 +66,30 @@ public class ResearcherFrame extends JFrame {
         progressBar1.setStringPainted(true);
         progressBar2.setStringPainted(true);
         progressBar3.setStringPainted(true);
-
-        for (int i = 0; i < products.size(); i++) {
-            try {
-                progressBar1.setValue(0);
-                progressBar2.setValue(0);
-                progressBar3.setValue(0);
-                MyThread myThread1 = new MyThread(products.get(i), progressBar1, "ensamblaje");
-                MyThread myThread2 = new MyThread(products.get(i), progressBar2, "pintura");
-                MyThread myThread3 = new MyThread(products.get(i), progressBar3, "empaquetado");
-                myThread1.start();
-                myThread1.join();
-                myThread2.start();
-                myThread2.join();
-                myThread3.start();
-                myThread3.join();
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
+        Thread thread = new Thread(() -> {
+            for (int i = 0; i < products.size(); i++) {
+                try {
+                    progressBar1.setValue(0);
+                    progressBar2.setValue(0);
+                    progressBar3.setValue(0);
+                    MyThread myThread1 = new MyThread(products.get(i), progressBar1, "ensamblaje");
+                    MyThread myThread2 = new MyThread(products.get(i), progressBar2, "pintura");
+                    MyThread myThread3 = new MyThread(products.get(i), progressBar3, "empaquetado");
+                    myThread1.start();
+                    myThread1.join();
+                    myThread2.start();
+                    myThread2.join();
+                    myThread3.start();
+                    myThread3.join();
+                    counter.setText("Productos terminados: " + (i + 1));
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-        }
+        });
 
+        thread.start();
 
+        this.setVisible(true);
     }
 }
